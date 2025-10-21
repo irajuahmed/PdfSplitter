@@ -27,7 +27,7 @@ namespace PdfSplitter
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 btnBrowsedFile.Text = openFileDialog.FileName;
-
+                txtSelectedFileName.Text = openFileDialog.SafeFileName;
                 using (PdfDocument inputDocument = PdfReader.Open(btnBrowsedFile.Text, PdfDocumentOpenMode.Import))
                 {
                     txtSelectedFileTitle.Text = inputDocument.Info.Title;
@@ -51,6 +51,7 @@ namespace PdfSplitter
             else
             {
                 btnBrowsedFile.Text = string.Empty;
+                txtSelectedFileName.Text = string.Empty;
             }
         }
 
@@ -61,6 +62,7 @@ namespace PdfSplitter
             progressBar1.Value = 0;
             SplitSelectFile();
             btnBrowsedFile.Text = string.Empty;
+            txtSelectedFileName.Text = string.Empty;
             txtSelectedFileTitle.Text = string.Empty;
             txtSelectedFileToatlPage.Text = string.Empty;
             txtAuthor.Text = string.Empty;

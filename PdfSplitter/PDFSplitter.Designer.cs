@@ -59,6 +59,8 @@
             this.panelCheckBoxContainer = new System.Windows.Forms.Panel();
             this.radioButtonOddPages = new System.Windows.Forms.RadioButton();
             this.radioButtonEvenPages = new System.Windows.Forms.RadioButton();
+            this.txtSelectedFileName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panelCheckBoxContainer.SuspendLayout();
@@ -129,6 +131,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtSelectedFileName);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.radioButtonEvenPages);
             this.groupBox1.Controls.Add(this.radioButtonOddPages);
             this.groupBox1.Controls.Add(this.panelCheckBoxContainer);
@@ -152,7 +156,7 @@
             this.groupBox1.Controls.Add(this.lblSelectedFileTitle);
             this.groupBox1.Location = new System.Drawing.Point(12, 10);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(831, 638);
+            this.groupBox1.Size = new System.Drawing.Size(831, 722);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Browse File";
@@ -160,7 +164,7 @@
             // lblSplitType
             // 
             this.lblSplitType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSplitType.Location = new System.Drawing.Point(8, 199);
+            this.lblSplitType.Location = new System.Drawing.Point(8, 253);
             this.lblSplitType.Name = "lblSplitType";
             this.lblSplitType.Size = new System.Drawing.Size(83, 36);
             this.lblSplitType.TabIndex = 16;
@@ -171,7 +175,7 @@
             // 
             this.radioButtonSelectedIntoOne.AutoSize = true;
             this.radioButtonSelectedIntoOne.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSelectedIntoOne.Location = new System.Drawing.Point(537, 209);
+            this.radioButtonSelectedIntoOne.Location = new System.Drawing.Point(537, 263);
             this.radioButtonSelectedIntoOne.Name = "radioButtonSelectedIntoOne";
             this.radioButtonSelectedIntoOne.Size = new System.Drawing.Size(152, 17);
             this.radioButtonSelectedIntoOne.TabIndex = 15;
@@ -184,7 +188,7 @@
             // 
             this.radioButtonSinglePageSplit.AutoSize = true;
             this.radioButtonSinglePageSplit.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonSinglePageSplit.Location = new System.Drawing.Point(98, 209);
+            this.radioButtonSinglePageSplit.Location = new System.Drawing.Point(98, 263);
             this.radioButtonSinglePageSplit.Name = "radioButtonSinglePageSplit";
             this.radioButtonSinglePageSplit.Size = new System.Drawing.Size(126, 17);
             this.radioButtonSinglePageSplit.TabIndex = 14;
@@ -210,7 +214,7 @@
             this.groupBox2.Controls.Add(this.btnSaveLocation);
             this.groupBox2.Controls.Add(this.btnSplitPdf);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(8, 407);
+            this.groupBox2.Location = new System.Drawing.Point(8, 496);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(805, 213);
             this.groupBox2.TabIndex = 12;
@@ -230,7 +234,7 @@
             // lblLastModifyDate
             // 
             this.lblLastModifyDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLastModifyDate.Location = new System.Drawing.Point(548, 155);
+            this.lblLastModifyDate.Location = new System.Drawing.Point(548, 209);
             this.lblLastModifyDate.Name = "lblLastModifyDate";
             this.lblLastModifyDate.Size = new System.Drawing.Size(106, 36);
             this.lblLastModifyDate.TabIndex = 11;
@@ -239,7 +243,7 @@
             // 
             // txtLastModifyDate
             // 
-            this.txtLastModifyDate.Location = new System.Drawing.Point(658, 155);
+            this.txtLastModifyDate.Location = new System.Drawing.Point(658, 209);
             this.txtLastModifyDate.Multiline = true;
             this.txtLastModifyDate.Name = "txtLastModifyDate";
             this.txtLastModifyDate.ReadOnly = true;
@@ -248,7 +252,7 @@
             // 
             // txtSelectedFileSize
             // 
-            this.txtSelectedFileSize.Location = new System.Drawing.Point(98, 155);
+            this.txtSelectedFileSize.Location = new System.Drawing.Point(98, 209);
             this.txtSelectedFileSize.Multiline = true;
             this.txtSelectedFileSize.Name = "txtSelectedFileSize";
             this.txtSelectedFileSize.ReadOnly = true;
@@ -257,7 +261,7 @@
             // 
             // txtCreationDate
             // 
-            this.txtCreationDate.Location = new System.Drawing.Point(366, 155);
+            this.txtCreationDate.Location = new System.Drawing.Point(366, 209);
             this.txtCreationDate.Multiline = true;
             this.txtCreationDate.Name = "txtCreationDate";
             this.txtCreationDate.ReadOnly = true;
@@ -267,7 +271,7 @@
             // lblSelectedFileSize
             // 
             this.lblSelectedFileSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelectedFileSize.Location = new System.Drawing.Point(8, 155);
+            this.lblSelectedFileSize.Location = new System.Drawing.Point(8, 209);
             this.lblSelectedFileSize.Name = "lblSelectedFileSize";
             this.lblSelectedFileSize.Size = new System.Drawing.Size(83, 36);
             this.lblSelectedFileSize.TabIndex = 6;
@@ -277,7 +281,7 @@
             // lblCreationDate
             // 
             this.lblCreationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreationDate.Location = new System.Drawing.Point(280, 155);
+            this.lblCreationDate.Location = new System.Drawing.Point(280, 209);
             this.lblCreationDate.Name = "lblCreationDate";
             this.lblCreationDate.Size = new System.Drawing.Size(83, 36);
             this.lblCreationDate.TabIndex = 6;
@@ -286,7 +290,7 @@
             // 
             // txtAuthor
             // 
-            this.txtAuthor.Location = new System.Drawing.Point(98, 108);
+            this.txtAuthor.Location = new System.Drawing.Point(98, 162);
             this.txtAuthor.Multiline = true;
             this.txtAuthor.Name = "txtAuthor";
             this.txtAuthor.ReadOnly = true;
@@ -296,7 +300,7 @@
             // lblCreator
             // 
             this.lblCreator.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCreator.Location = new System.Drawing.Point(4, 107);
+            this.lblCreator.Location = new System.Drawing.Point(4, 161);
             this.lblCreator.Name = "lblCreator";
             this.lblCreator.Size = new System.Drawing.Size(58, 36);
             this.lblCreator.TabIndex = 4;
@@ -305,7 +309,7 @@
             // 
             // txtSelectedFileToatlPage
             // 
-            this.txtSelectedFileToatlPage.Location = new System.Drawing.Point(656, 107);
+            this.txtSelectedFileToatlPage.Location = new System.Drawing.Point(656, 161);
             this.txtSelectedFileToatlPage.Multiline = true;
             this.txtSelectedFileToatlPage.Name = "txtSelectedFileToatlPage";
             this.txtSelectedFileToatlPage.ReadOnly = true;
@@ -315,7 +319,7 @@
             // lblSelectedFileToatlPage
             // 
             this.lblSelectedFileToatlPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelectedFileToatlPage.Location = new System.Drawing.Point(570, 107);
+            this.lblSelectedFileToatlPage.Location = new System.Drawing.Point(570, 161);
             this.lblSelectedFileToatlPage.Name = "lblSelectedFileToatlPage";
             this.lblSelectedFileToatlPage.Size = new System.Drawing.Size(87, 36);
             this.lblSelectedFileToatlPage.TabIndex = 2;
@@ -325,7 +329,7 @@
             // txtSelectedFileTitle
             // 
             this.txtSelectedFileTitle.CausesValidation = false;
-            this.txtSelectedFileTitle.Location = new System.Drawing.Point(98, 63);
+            this.txtSelectedFileTitle.Location = new System.Drawing.Point(98, 117);
             this.txtSelectedFileTitle.Multiline = true;
             this.txtSelectedFileTitle.Name = "txtSelectedFileTitle";
             this.txtSelectedFileTitle.ReadOnly = true;
@@ -335,7 +339,7 @@
             // lblSelectedFileTitle
             // 
             this.lblSelectedFileTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSelectedFileTitle.Location = new System.Drawing.Point(7, 63);
+            this.lblSelectedFileTitle.Location = new System.Drawing.Point(7, 117);
             this.lblSelectedFileTitle.Name = "lblSelectedFileTitle";
             this.lblSelectedFileTitle.Size = new System.Drawing.Size(58, 36);
             this.lblSelectedFileTitle.TabIndex = 0;
@@ -346,7 +350,7 @@
             // 
             this.panelCheckBoxContainer.AutoScroll = true;
             this.panelCheckBoxContainer.Controls.Add(this.checkBoxGroup);
-            this.panelCheckBoxContainer.Location = new System.Drawing.Point(9, 242);
+            this.panelCheckBoxContainer.Location = new System.Drawing.Point(9, 331);
             this.panelCheckBoxContainer.Name = "panelCheckBoxContainer";
             this.panelCheckBoxContainer.Size = new System.Drawing.Size(816, 159);
             this.panelCheckBoxContainer.TabIndex = 17;
@@ -355,7 +359,7 @@
             // 
             this.radioButtonOddPages.AutoSize = true;
             this.radioButtonOddPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonOddPages.Location = new System.Drawing.Point(249, 209);
+            this.radioButtonOddPages.Location = new System.Drawing.Point(249, 263);
             this.radioButtonOddPages.Name = "radioButtonOddPages";
             this.radioButtonOddPages.Size = new System.Drawing.Size(116, 17);
             this.radioButtonOddPages.TabIndex = 18;
@@ -368,7 +372,7 @@
             // 
             this.radioButtonEvenPages.AutoSize = true;
             this.radioButtonEvenPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonEvenPages.Location = new System.Drawing.Point(390, 209);
+            this.radioButtonEvenPages.Location = new System.Drawing.Point(390, 263);
             this.radioButtonEvenPages.Name = "radioButtonEvenPages";
             this.radioButtonEvenPages.Size = new System.Drawing.Size(122, 17);
             this.radioButtonEvenPages.TabIndex = 19;
@@ -377,11 +381,31 @@
             this.radioButtonEvenPages.UseVisualStyleBackColor = true;
             this.radioButtonEvenPages.CheckedChanged += new System.EventHandler(this.radioButtonEvenPages_CheckedChanged);
             // 
+            // txtSelectedFileName
+            // 
+            this.txtSelectedFileName.CausesValidation = false;
+            this.txtSelectedFileName.Location = new System.Drawing.Point(98, 64);
+            this.txtSelectedFileName.Multiline = true;
+            this.txtSelectedFileName.Name = "txtSelectedFileName";
+            this.txtSelectedFileName.ReadOnly = true;
+            this.txtSelectedFileName.Size = new System.Drawing.Size(715, 36);
+            this.txtSelectedFileName.TabIndex = 21;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(7, 64);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 36);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "File Name";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // PDFSplitter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(853, 683);
+            this.ClientSize = new System.Drawing.Size(853, 761);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -429,6 +453,8 @@
         private System.Windows.Forms.Panel panelCheckBoxContainer;
         private System.Windows.Forms.RadioButton radioButtonEvenPages;
         private System.Windows.Forms.RadioButton radioButtonOddPages;
+        private System.Windows.Forms.TextBox txtSelectedFileName;
+        private System.Windows.Forms.Label label1;
     }
 }
 
