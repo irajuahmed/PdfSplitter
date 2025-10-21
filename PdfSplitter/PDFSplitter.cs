@@ -2,6 +2,7 @@
 using PdfSharp.Pdf.IO;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -60,125 +61,210 @@ namespace PdfSplitter
             txtFinalMessage.Text = string.Empty;
             progressBar1.Minimum = 0;
             progressBar1.Value = 0;
-            SplitSelectFile();
-            btnBrowsedFile.Text = string.Empty;
-            txtSelectedFileName.Text = string.Empty;
-            txtSelectedFileTitle.Text = string.Empty;
-            txtSelectedFileToatlPage.Text = string.Empty;
-            txtAuthor.Text = string.Empty;
-            txtSelectedFileSize.Text = string.Empty;
-            txtCreationDate.Text = string.Empty;
-            txtLastModifyDate.Text = string.Empty;
-            btnSelectedFilePath.Text = string.Empty;
-            btnSplitPdf.Enabled = false;
-            btnSaveLocation.Enabled = false;
+            SplitSelectFile();            
         }
 
         private void SplitSelectFile()
         {
-            progressBar1.Minimum = 0;
-            progressBar1.Value = 0;
-
-            var isSinglePageSplit = radioButtonSinglePageSplit.Checked;
-            var isSelectedIntoOneFileSplit = radioButtonSelectedIntoOne.Checked;
-            var isOddPagesSplit = radioButtonOddPages.Checked;
-            var isEvenPagesSplit = radioButtonEvenPages.Checked;
-
-            string sourcePdfPath = btnBrowsedFile.Text;
-            string outputFolder = btnSelectedFilePath.Text;
-            if (!File.Exists(sourcePdfPath))
+            try
             {
-                MessageBox.Show("PDF file not found.");
-                return;
-            }
+                progressBar1.Minimum = 0;
+                progressBar1.Value = 0;
+                txtRangeFrom.BackColor = Color.White;
+                txtRangeTo.BackColor = Color.White;
 
-            if (!Directory.Exists(outputFolder))
-            {
-                Directory.CreateDirectory(outputFolder);
-            }
+                var isSinglePageSplit = radioButtonSinglePageSplit.Checked;
+                var isSelectedIntoOneFileSplit = radioButtonSelectedIntoOne.Checked;
+                var isOddPagesSplit = radioButtonOddPages.Checked;
+                var isEvenPagesSplit = radioButtonEvenPages.Checked;
+                var isRangeWisePagesSplit = radioButtonRange.Checked;
 
-            using (PdfDocument inputDocument = PdfReader.Open(sourcePdfPath, PdfDocumentOpenMode.Import))
-            {
-                string finalMessage = string.Empty;
-                int pageCount = inputDocument.PageCount;
-                if (pageCount <= 1)
+                string sourcePdfPath = btnBrowsedFile.Text;
+                string outputFolder = btnSelectedFilePath.Text;
+
+                if (!File.Exists(sourcePdfPath))
                 {
-                    txtFinalMessage.Text = $"File '{inputDocument.Info.Title}' has only one page and cannot be split.";
+                    txtFinalMessage.Text = "PDF file not found.";
                     return;
                 }
 
-                string fileName = !string.IsNullOrEmpty(inputDocument.Info.Title) ? inputDocument.Info.Title : "Untitled";
-
-                if (isSinglePageSplit)
+                if (!Directory.Exists(outputFolder))
                 {
-                    progressBar1.Maximum = pageCount;
+                    Directory.CreateDirectory(outputFolder);
+                }
 
-                    for (int idx = 0; idx < pageCount; idx++)
+                using (PdfDocument inputDocument = PdfReader.Open(sourcePdfPath, PdfDocumentOpenMode.Import))
+                {
+                    txtFinalMessage.Text = "";
+                    int pageCount = inputDocument.PageCount;
+                    if (pageCount <= 1)
                     {
+                        txtFinalMessage.Text = $"File '{inputDocument.Info.Title}' has only one page and cannot be split.";
+                        return;
+                    }
+
+                    string fileName = !string.IsNullOrEmpty(inputDocument.Info.Title)
+                        ? inputDocument.Info.Title
+                        : "Untitled";
+
+                    // 🟢 SINGLE PAGE SPLIT
+                    if (isSinglePageSplit)
+                    {
+                        progressBar1.Maximum = pageCount;
+
+                        for (int idx = 0; idx < pageCount; idx++)
+                        {
+                            PdfDocument outputDocument = new PdfDocument();
+                            outputDocument.AddPage(inputDocument.Pages[idx]);
+                            string outputFilePath = Path.Combine(outputFolder, $"Page_{idx + 1}.pdf");
+                            outputDocument.Save(outputFilePath);
+                            progressBar1.Value = idx + 1;
+                            Application.DoEvents();
+                        }
+
+                        txtFinalMessage.Text = $"File '{fileName}' split successfully into {pageCount} pages!";
+                    }
+
+                    // 🟢 SELECTED INTO ONE FILE SPLIT
+                    else if (isSelectedIntoOneFileSplit)
+                    {
+                        List<int> selectedPages = GetSelectedPages();
+                        if (selectedPages.Count == 0)
+                        {
+                            selectedPages = Enumerable.Range(1, pageCount).ToList();
+                        }
+
                         PdfDocument outputDocument = new PdfDocument();
-                        outputDocument.AddPage(inputDocument.Pages[idx]);
-                        string outputFilePath = Path.Combine(outputFolder, $"Page_{idx + 1}.pdf");
+                        progressBar1.Maximum = selectedPages.Count;
+
+                        foreach (int page in selectedPages)
+                        {
+                            outputDocument.AddPage(inputDocument.Pages[page - 1]);
+                            progressBar1.Value += 1;
+                            Application.DoEvents();
+                        }
+
+                        string outputFilePath = Path.Combine(outputFolder, "SelectedPages.pdf");
                         outputDocument.Save(outputFilePath);
-                        progressBar1.Value = idx + 1;
+
+                        txtFinalMessage.Text = $"File '{fileName}' selected pages saved as '{Path.GetFileName(outputFilePath)}'";
                     }
-                }
-                else if (isSelectedIntoOneFileSplit)
-                {
-                    List<int> selectedPages = GetSelectedPages();
-                    if (selectedPages.Count == 0)
+
+                    // 🟢 ODD PAGES SPLIT
+                    else if (isOddPagesSplit)
                     {
-                        selectedPages = Enumerable.Range(1, pageCount).ToList();
+                        var oddPages = Enumerable.Range(1, pageCount).Where(p => p % 2 != 0).ToList();
+                        PdfDocument outputDocument = new PdfDocument();
+                        progressBar1.Maximum = oddPages.Count;
+
+                        foreach (int page in oddPages)
+                        {
+                            outputDocument.AddPage(inputDocument.Pages[page - 1]);
+                            progressBar1.Value += 1;
+                            Application.DoEvents();
+                        }
+
+                        string outputFilePath = Path.Combine(outputFolder, "OddPages.pdf");
+                        outputDocument.Save(outputFilePath);
+
+                        txtFinalMessage.Text = $"Odd pages successfully saved as '{Path.GetFileName(outputFilePath)}'";
                     }
 
-                    PdfDocument outputDocument = new PdfDocument();
-                    progressBar1.Maximum = selectedPages.Count;
-
-                    foreach (int page in selectedPages)
+                    // 🟢 EVEN PAGES SPLIT
+                    else if (isEvenPagesSplit)
                     {
-                        /*-1 because PdfSharp is 0-based */
-                        outputDocument.AddPage(inputDocument.Pages[page - 1]); 
-                        progressBar1.Value += 1;
+                        var evenPages = Enumerable.Range(1, pageCount).Where(p => p % 2 == 0).ToList();
+                        PdfDocument outputDocument = new PdfDocument();
+                        progressBar1.Maximum = evenPages.Count;
+
+                        foreach (int page in evenPages)
+                        {
+                            outputDocument.AddPage(inputDocument.Pages[page - 1]);
+                            progressBar1.Value += 1;
+                            Application.DoEvents();
+                        }
+
+                        string outputFilePath = Path.Combine(outputFolder, "EvenPages.pdf");
+                        outputDocument.Save(outputFilePath);
+
+                        txtFinalMessage.Text = $"Even pages successfully saved as '{Path.GetFileName(outputFilePath)}'";
                     }
 
-                    string outputFilePath = Path.Combine(outputFolder, "SelectedPages.pdf");
-                    outputDocument.Save(outputFilePath);
-                }
-                else if (isOddPagesSplit)
-                {
-                    var oddPages = Enumerable.Range(1, pageCount).Where(p => p % 2 != 0).ToList();
-
-                    PdfDocument outputDocument = new PdfDocument();
-                    progressBar1.Maximum = oddPages.Count;
-
-                    foreach (int page in oddPages)
+                    // 🟡 RANGE-WISE SPLIT
+                    else if (isRangeWisePagesSplit)
                     {
-                        outputDocument.AddPage(inputDocument.Pages[page - 1]);
-                        progressBar1.Value += 1;
-                    }
+                        // --- Validation Section ---
+                        if (string.IsNullOrWhiteSpace(txtRangeFrom.Text) || string.IsNullOrWhiteSpace(txtRangeTo.Text))
+                        {
+                            txtRangeFrom.BackColor = Color.Red;
+                            txtRangeTo.BackColor = Color.Red;
 
-                    string outputFilePath = Path.Combine(outputFolder, "OddPages.pdf");
-                    outputDocument.Save(outputFilePath);
+                            MessageBox.Show("Please provide both 'From' and 'To' page numbers.",
+                                            "Missing Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        if (!int.TryParse(txtRangeFrom.Text, out int fromPage) || !int.TryParse(txtRangeTo.Text, out int toPage))
+                        {
+                            txtRangeFrom.BackColor = Color.Red;
+                            txtRangeTo.BackColor = Color.Red;
+
+                            MessageBox.Show("Please enter valid numeric values for the range.",
+                                            "Invalid Input", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        if (fromPage < 1 || toPage > seletedFilePageCount || fromPage > toPage)
+                        {
+                            txtRangeFrom.BackColor = Color.Red;
+                            txtRangeTo.BackColor = Color.Red;
+
+                            MessageBox.Show($"Page range must be between 1 and {seletedFilePageCount}, and 'From' must be ≤ 'To'.",
+                                            "Invalid Range", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        txtRangeFrom.BackColor = Color.White;
+                        txtRangeTo.BackColor = Color.White;
+
+                        // --- Splitting Section ---
+                        PdfDocument outputDocument = new PdfDocument();
+                        progressBar1.Maximum = toPage - fromPage + 1;
+                        progressBar1.Value = 0;
+
+                        for (int page = fromPage; page <= toPage; page++)
+                        {
+                            outputDocument.AddPage(inputDocument.Pages[page - 1]);
+                            progressBar1.Value += 1;
+                            Application.DoEvents(); // keeps UI responsive
+                        }
+
+                        string outputFilePath = Path.Combine(outputFolder, $"Pages_{fromPage}_to_{toPage}.pdf");
+                        outputDocument.Save(outputFilePath);
+
+                        // ✅ Success message in txtFinalMessage (not MessageBox)
+                        txtFinalMessage.Text = $"Pages {fromPage}-{toPage} successfully saved as '{Path.GetFileName(outputFilePath)}'";
+                    }                   
+
                 }
-                else if (isEvenPagesSplit)
-                {
-                    var evenPages = Enumerable.Range(1, pageCount).Where(p => p % 2 == 0).ToList();
 
-                    PdfDocument outputDocument = new PdfDocument();
-                    progressBar1.Maximum = evenPages.Count;
+                //txtFinalMessage.Text = string.Empty;
+                //progressBar1.Minimum = 0;
+                //progressBar1.Value = 0;
+                //btnSplitPdf.Enabled = false;
+                //btnSaveLocation.Enabled = false;
+                //txtRangeFrom.Enabled = false;
+                //txtRangeTo.Enabled = false;
+                //checkBoxGroup.Controls.Clear();
 
-                    foreach (int page in evenPages)
-                    {
-                        outputDocument.AddPage(inputDocument.Pages[page - 1]);
-                        progressBar1.Value += 1;
-                    }
-
-                    string outputFilePath = Path.Combine(outputFolder, "EvenPages.pdf");
-                    outputDocument.Save(outputFilePath);
-                }
-
-                txtFinalMessage.Text = $"File '{fileName}' split successfully!";
+            }
+            catch (Exception ex)
+            {
+                txtFinalMessage.Text = "Error: " + ex.Message;
+                progressBar1.Value = 0;
             }
         }
+
 
 
         private void btnSaveLocation_Click(object sender, EventArgs e)
@@ -255,25 +341,46 @@ namespace PdfSplitter
 
         private void radioButtonSelectedIntoOne_CheckedChanged(object sender, EventArgs e)
         {
+            txtRangeFrom.Enabled = false;
+            txtRangeTo.Enabled = false;
+
             if (radioButtonSelectedIntoOne.Checked)
                 RenderPageCheckboxes(seletedFilePageCount, true);
         }
 
         private void radioButtonSinglePageSplit_CheckedChanged(object sender, EventArgs e)
         {
+            txtRangeFrom.Enabled = false;
+            txtRangeTo.Enabled = false;
+
             if (radioButtonSinglePageSplit.Checked)
                 RenderPageCheckboxes(seletedFilePageCount, false);
         }
 
         private void radioButtonOddPages_CheckedChanged(object sender, EventArgs e)
         {
+            txtRangeFrom.Enabled = false;
+            txtRangeTo.Enabled = false;
+
             if (radioButtonOddPages.Checked)
                 RenderPageCheckboxes(seletedFilePageCount, false);
         }
 
         private void radioButtonEvenPages_CheckedChanged(object sender, EventArgs e)
         {
+            txtRangeFrom.Enabled = false;
+            txtRangeTo.Enabled = false;
+
             if (radioButtonEvenPages.Checked)
+                RenderPageCheckboxes(seletedFilePageCount, false);
+        }
+
+        private void radioButtonRange_CheckedChanged(object sender, EventArgs e)
+        {
+            txtRangeFrom.Enabled = true;
+            txtRangeTo.Enabled = true;
+
+            if (radioButtonRange.Checked)
                 RenderPageCheckboxes(seletedFilePageCount, false);
         }
     }
