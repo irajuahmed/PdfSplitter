@@ -34,14 +34,21 @@
             this.btnSplitPdf = new System.Windows.Forms.Button();
             this.btnSaveLocation = new System.Windows.Forms.Button();
             this.btnSelectedFilePath = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtRangeTo = new System.Windows.Forms.TextBox();
+            this.lblRangeTo = new System.Windows.Forms.Label();
+            this.txtRangeFrom = new System.Windows.Forms.TextBox();
+            this.radioButtonRange = new System.Windows.Forms.RadioButton();
+            this.txtSelectedFileName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.radioButtonEvenPages = new System.Windows.Forms.RadioButton();
+            this.radioButtonOddPages = new System.Windows.Forms.RadioButton();
+            this.panelCheckBoxContainer = new System.Windows.Forms.Panel();
+            this.checkBoxGroup = new System.Windows.Forms.GroupBox();
             this.lblSplitType = new System.Windows.Forms.Label();
             this.radioButtonSelectedIntoOne = new System.Windows.Forms.RadioButton();
             this.radioButtonSinglePageSplit = new System.Windows.Forms.RadioButton();
-            this.checkBoxGroup = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtFinalMessage = new System.Windows.Forms.TextBox();
             this.lblLastModifyDate = new System.Windows.Forms.Label();
             this.txtLastModifyDate = new System.Windows.Forms.TextBox();
             this.txtSelectedFileSize = new System.Windows.Forms.TextBox();
@@ -56,18 +63,9 @@
             this.lblSelectedFileTitle = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.panelCheckBoxContainer = new System.Windows.Forms.Panel();
-            this.radioButtonOddPages = new System.Windows.Forms.RadioButton();
-            this.radioButtonEvenPages = new System.Windows.Forms.RadioButton();
-            this.txtSelectedFileName = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.radioButtonRange = new System.Windows.Forms.RadioButton();
-            this.txtRangeFrom = new System.Windows.Forms.TextBox();
-            this.lblRangeTo = new System.Windows.Forms.Label();
-            this.txtRangeTo = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.panelCheckBoxContainer.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnBrowse
@@ -95,9 +93,9 @@
             // 
             this.btnSplitPdf.Enabled = false;
             this.btnSplitPdf.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSplitPdf.Location = new System.Drawing.Point(19, 94);
+            this.btnSplitPdf.Location = new System.Drawing.Point(635, 41);
             this.btnSplitPdf.Name = "btnSplitPdf";
-            this.btnSplitPdf.Size = new System.Drawing.Size(374, 42);
+            this.btnSplitPdf.Size = new System.Drawing.Size(146, 32);
             this.btnSplitPdf.TabIndex = 2;
             this.btnSplitPdf.Text = "Split";
             this.btnSplitPdf.UseVisualStyleBackColor = true;
@@ -106,9 +104,10 @@
             // btnSaveLocation
             // 
             this.btnSaveLocation.Enabled = false;
-            this.btnSaveLocation.Location = new System.Drawing.Point(288, 41);
+            this.btnSaveLocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveLocation.Location = new System.Drawing.Point(499, 41);
             this.btnSaveLocation.Name = "btnSaveLocation";
-            this.btnSaveLocation.Size = new System.Drawing.Size(105, 42);
+            this.btnSaveLocation.Size = new System.Drawing.Size(127, 32);
             this.btnSaveLocation.TabIndex = 4;
             this.btnSaveLocation.Text = "PDF Saving Path";
             this.btnSaveLocation.UseVisualStyleBackColor = true;
@@ -119,19 +118,10 @@
             this.btnSelectedFilePath.Cursor = System.Windows.Forms.Cursors.No;
             this.btnSelectedFilePath.Location = new System.Drawing.Point(19, 41);
             this.btnSelectedFilePath.Name = "btnSelectedFilePath";
-            this.btnSelectedFilePath.Size = new System.Drawing.Size(269, 42);
+            this.btnSelectedFilePath.Size = new System.Drawing.Size(471, 32);
             this.btnSelectedFilePath.TabIndex = 3;
             this.btnSelectedFilePath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSelectedFilePath.UseVisualStyleBackColor = true;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(19, 147);
-            this.progressBar1.Minimum = 1;
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(374, 42);
-            this.progressBar1.TabIndex = 5;
-            this.progressBar1.Value = 1;
             // 
             // groupBox1
             // 
@@ -169,6 +159,110 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Browse File";
             // 
+            // txtRangeTo
+            // 
+            this.txtRangeTo.Enabled = false;
+            this.txtRangeTo.Location = new System.Drawing.Point(725, 263);
+            this.txtRangeTo.Name = "txtRangeTo";
+            this.txtRangeTo.Size = new System.Drawing.Size(74, 20);
+            this.txtRangeTo.TabIndex = 25;
+            // 
+            // lblRangeTo
+            // 
+            this.lblRangeTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRangeTo.Location = new System.Drawing.Point(695, 258);
+            this.lblRangeTo.Name = "lblRangeTo";
+            this.lblRangeTo.Size = new System.Drawing.Size(23, 29);
+            this.lblRangeTo.TabIndex = 24;
+            this.lblRangeTo.Text = "To";
+            this.lblRangeTo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // txtRangeFrom
+            // 
+            this.txtRangeFrom.Enabled = false;
+            this.txtRangeFrom.Location = new System.Drawing.Point(614, 263);
+            this.txtRangeFrom.Name = "txtRangeFrom";
+            this.txtRangeFrom.Size = new System.Drawing.Size(74, 20);
+            this.txtRangeFrom.TabIndex = 23;
+            // 
+            // radioButtonRange
+            // 
+            this.radioButtonRange.AutoSize = true;
+            this.radioButtonRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonRange.Location = new System.Drawing.Point(547, 263);
+            this.radioButtonRange.Name = "radioButtonRange";
+            this.radioButtonRange.Size = new System.Drawing.Size(62, 17);
+            this.radioButtonRange.TabIndex = 22;
+            this.radioButtonRange.TabStop = true;
+            this.radioButtonRange.Text = "Range";
+            this.radioButtonRange.UseVisualStyleBackColor = true;
+            this.radioButtonRange.CheckedChanged += new System.EventHandler(this.radioButtonRange_CheckedChanged);
+            // 
+            // txtSelectedFileName
+            // 
+            this.txtSelectedFileName.CausesValidation = false;
+            this.txtSelectedFileName.Location = new System.Drawing.Point(84, 64);
+            this.txtSelectedFileName.Multiline = true;
+            this.txtSelectedFileName.Name = "txtSelectedFileName";
+            this.txtSelectedFileName.ReadOnly = true;
+            this.txtSelectedFileName.Size = new System.Drawing.Size(715, 36);
+            this.txtSelectedFileName.TabIndex = 21;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(6, 64);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(75, 36);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "File Name";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // radioButtonEvenPages
+            // 
+            this.radioButtonEvenPages.AutoSize = true;
+            this.radioButtonEvenPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonEvenPages.Location = new System.Drawing.Point(277, 263);
+            this.radioButtonEvenPages.Name = "radioButtonEvenPages";
+            this.radioButtonEvenPages.Size = new System.Drawing.Size(93, 17);
+            this.radioButtonEvenPages.TabIndex = 19;
+            this.radioButtonEvenPages.TabStop = true;
+            this.radioButtonEvenPages.Text = "Even Pages";
+            this.radioButtonEvenPages.UseVisualStyleBackColor = true;
+            this.radioButtonEvenPages.CheckedChanged += new System.EventHandler(this.radioButtonEvenPages_CheckedChanged);
+            // 
+            // radioButtonOddPages
+            // 
+            this.radioButtonOddPages.AutoSize = true;
+            this.radioButtonOddPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonOddPages.Location = new System.Drawing.Point(184, 263);
+            this.radioButtonOddPages.Name = "radioButtonOddPages";
+            this.radioButtonOddPages.Size = new System.Drawing.Size(87, 17);
+            this.radioButtonOddPages.TabIndex = 18;
+            this.radioButtonOddPages.TabStop = true;
+            this.radioButtonOddPages.Text = "Odd Pages";
+            this.radioButtonOddPages.UseVisualStyleBackColor = true;
+            this.radioButtonOddPages.CheckedChanged += new System.EventHandler(this.radioButtonOddPages_CheckedChanged);
+            // 
+            // panelCheckBoxContainer
+            // 
+            this.panelCheckBoxContainer.AutoScroll = true;
+            this.panelCheckBoxContainer.Controls.Add(this.checkBoxGroup);
+            this.panelCheckBoxContainer.Location = new System.Drawing.Point(9, 292);
+            this.panelCheckBoxContainer.Name = "panelCheckBoxContainer";
+            this.panelCheckBoxContainer.Size = new System.Drawing.Size(816, 177);
+            this.panelCheckBoxContainer.TabIndex = 17;
+            // 
+            // checkBoxGroup
+            // 
+            this.checkBoxGroup.AutoSize = true;
+            this.checkBoxGroup.Location = new System.Drawing.Point(3, 8);
+            this.checkBoxGroup.Name = "checkBoxGroup";
+            this.checkBoxGroup.Size = new System.Drawing.Size(810, 162);
+            this.checkBoxGroup.TabIndex = 13;
+            this.checkBoxGroup.TabStop = false;
+            this.checkBoxGroup.Text = "Page Number";
+            // 
             // lblSplitType
             // 
             this.lblSplitType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -205,20 +299,8 @@
             this.radioButtonSinglePageSplit.UseVisualStyleBackColor = true;
             this.radioButtonSinglePageSplit.CheckedChanged += new System.EventHandler(this.radioButtonSinglePageSplit_CheckedChanged);
             // 
-            // checkBoxGroup
-            // 
-            this.checkBoxGroup.AutoSize = true;
-            this.checkBoxGroup.Location = new System.Drawing.Point(3, 8);
-            this.checkBoxGroup.Name = "checkBoxGroup";
-            this.checkBoxGroup.Size = new System.Drawing.Size(810, 162);
-            this.checkBoxGroup.TabIndex = 13;
-            this.checkBoxGroup.TabStop = false;
-            this.checkBoxGroup.Text = "Page Number";
-            // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.txtFinalMessage);
-            this.groupBox2.Controls.Add(this.progressBar1);
             this.groupBox2.Controls.Add(this.btnSelectedFilePath);
             this.groupBox2.Controls.Add(this.btnSaveLocation);
             this.groupBox2.Controls.Add(this.btnSplitPdf);
@@ -229,16 +311,6 @@
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File Saving Info";
-            // 
-            // txtFinalMessage
-            // 
-            this.txtFinalMessage.BackColor = System.Drawing.SystemColors.Window;
-            this.txtFinalMessage.Enabled = false;
-            this.txtFinalMessage.Location = new System.Drawing.Point(401, 43);
-            this.txtFinalMessage.Multiline = true;
-            this.txtFinalMessage.Name = "txtFinalMessage";
-            this.txtFinalMessage.Size = new System.Drawing.Size(378, 146);
-            this.txtFinalMessage.TabIndex = 6;
             // 
             // lblLastModifyDate
             // 
@@ -355,100 +427,6 @@
             this.lblSelectedFileTitle.Text = "File Title";
             this.lblSelectedFileTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panelCheckBoxContainer
-            // 
-            this.panelCheckBoxContainer.AutoScroll = true;
-            this.panelCheckBoxContainer.Controls.Add(this.checkBoxGroup);
-            this.panelCheckBoxContainer.Location = new System.Drawing.Point(9, 292);
-            this.panelCheckBoxContainer.Name = "panelCheckBoxContainer";
-            this.panelCheckBoxContainer.Size = new System.Drawing.Size(816, 177);
-            this.panelCheckBoxContainer.TabIndex = 17;
-            // 
-            // radioButtonOddPages
-            // 
-            this.radioButtonOddPages.AutoSize = true;
-            this.radioButtonOddPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonOddPages.Location = new System.Drawing.Point(184, 263);
-            this.radioButtonOddPages.Name = "radioButtonOddPages";
-            this.radioButtonOddPages.Size = new System.Drawing.Size(87, 17);
-            this.radioButtonOddPages.TabIndex = 18;
-            this.radioButtonOddPages.TabStop = true;
-            this.radioButtonOddPages.Text = "Odd Pages";
-            this.radioButtonOddPages.UseVisualStyleBackColor = true;
-            this.radioButtonOddPages.CheckedChanged += new System.EventHandler(this.radioButtonOddPages_CheckedChanged);
-            // 
-            // radioButtonEvenPages
-            // 
-            this.radioButtonEvenPages.AutoSize = true;
-            this.radioButtonEvenPages.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonEvenPages.Location = new System.Drawing.Point(277, 263);
-            this.radioButtonEvenPages.Name = "radioButtonEvenPages";
-            this.radioButtonEvenPages.Size = new System.Drawing.Size(93, 17);
-            this.radioButtonEvenPages.TabIndex = 19;
-            this.radioButtonEvenPages.TabStop = true;
-            this.radioButtonEvenPages.Text = "Even Pages";
-            this.radioButtonEvenPages.UseVisualStyleBackColor = true;
-            this.radioButtonEvenPages.CheckedChanged += new System.EventHandler(this.radioButtonEvenPages_CheckedChanged);
-            // 
-            // txtSelectedFileName
-            // 
-            this.txtSelectedFileName.CausesValidation = false;
-            this.txtSelectedFileName.Location = new System.Drawing.Point(84, 64);
-            this.txtSelectedFileName.Multiline = true;
-            this.txtSelectedFileName.Name = "txtSelectedFileName";
-            this.txtSelectedFileName.ReadOnly = true;
-            this.txtSelectedFileName.Size = new System.Drawing.Size(715, 36);
-            this.txtSelectedFileName.TabIndex = 21;
-            // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(6, 64);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 36);
-            this.label1.TabIndex = 20;
-            this.label1.Text = "File Name";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // radioButtonRange
-            // 
-            this.radioButtonRange.AutoSize = true;
-            this.radioButtonRange.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonRange.Location = new System.Drawing.Point(547, 263);
-            this.radioButtonRange.Name = "radioButtonRange";
-            this.radioButtonRange.Size = new System.Drawing.Size(62, 17);
-            this.radioButtonRange.TabIndex = 22;
-            this.radioButtonRange.TabStop = true;
-            this.radioButtonRange.Text = "Range";
-            this.radioButtonRange.UseVisualStyleBackColor = true;
-            this.radioButtonRange.CheckedChanged += new System.EventHandler(this.radioButtonRange_CheckedChanged);
-            // 
-            // txtRangeFrom
-            // 
-            this.txtRangeFrom.Enabled = false;
-            this.txtRangeFrom.Location = new System.Drawing.Point(614, 263);
-            this.txtRangeFrom.Name = "txtRangeFrom";
-            this.txtRangeFrom.Size = new System.Drawing.Size(74, 20);
-            this.txtRangeFrom.TabIndex = 23;
-            // 
-            // lblRangeTo
-            // 
-            this.lblRangeTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRangeTo.Location = new System.Drawing.Point(695, 258);
-            this.lblRangeTo.Name = "lblRangeTo";
-            this.lblRangeTo.Size = new System.Drawing.Size(23, 29);
-            this.lblRangeTo.TabIndex = 24;
-            this.lblRangeTo.Text = "To";
-            this.lblRangeTo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // txtRangeTo
-            // 
-            this.txtRangeTo.Enabled = false;
-            this.txtRangeTo.Location = new System.Drawing.Point(725, 263);
-            this.txtRangeTo.Name = "txtRangeTo";
-            this.txtRangeTo.Size = new System.Drawing.Size(74, 20);
-            this.txtRangeTo.TabIndex = 25;
-            // 
             // PDFSplitter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -463,10 +441,9 @@
             this.Load += new System.EventHandler(this.PDFSplitter_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.panelCheckBoxContainer.ResumeLayout(false);
             this.panelCheckBoxContainer.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -477,7 +454,6 @@
         private System.Windows.Forms.Button btnSplitPdf;
         private System.Windows.Forms.Button btnSaveLocation;
         private System.Windows.Forms.Button btnSelectedFilePath;
-        private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.TextBox txtSelectedFileTitle;
@@ -493,7 +469,6 @@
         private System.Windows.Forms.TextBox txtSelectedFileSize;
         private System.Windows.Forms.Label lblSelectedFileSize;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox txtFinalMessage;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.GroupBox checkBoxGroup;
         private System.Windows.Forms.Label lblSplitType;

@@ -22,9 +22,9 @@ namespace PdfSplitter
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "*.pdf|";
             btnSaveLocation.Enabled = true;
-            txtFinalMessage.Text = string.Empty;
-            progressBar1.Minimum = 0;
-            progressBar1.Value = 0;
+           string txtFinalMessage = string.Empty;
+            //progressBar1.Minimum = 0;
+            //progressBar1.Value = 0;
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 btnBrowsedFile.Text = openFileDialog.FileName;
@@ -58,9 +58,9 @@ namespace PdfSplitter
 
         private void btnSplitPdf_Click(object sender, EventArgs e)
         {
-            txtFinalMessage.Text = string.Empty;
-            progressBar1.Minimum = 0;
-            progressBar1.Value = 0;
+           string txtFinalMessage = string.Empty;
+            //progressBar1.Minimum = 0;
+            //progressBar1.Value = 0;
             SplitSelectFile();            
         }
 
@@ -68,8 +68,8 @@ namespace PdfSplitter
         {
             try
             {
-                progressBar1.Minimum = 0;
-                progressBar1.Value = 0;
+                //progressBar1.Minimum = 0;
+                //progressBar1.Value = 0;
                 txtRangeFrom.BackColor = Color.White;
                 txtRangeTo.BackColor = Color.White;
 
@@ -82,9 +82,11 @@ namespace PdfSplitter
                 string sourcePdfPath = btnBrowsedFile.Text;
                 string outputFolder = btnSelectedFilePath.Text;
 
+                string txtFinalMessage = string.Empty;  
+
                 if (!File.Exists(sourcePdfPath))
                 {
-                    txtFinalMessage.Text = "PDF file not found.";
+                    txtFinalMessage = "PDF file not found.";
                     return;
                 }
 
@@ -95,22 +97,21 @@ namespace PdfSplitter
 
                 using (PdfDocument inputDocument = PdfReader.Open(sourcePdfPath, PdfDocumentOpenMode.Import))
                 {
-                    txtFinalMessage.Text = "";
+                    txtFinalMessage = "";
                     int pageCount = inputDocument.PageCount;
+                    string fileName = !string.IsNullOrEmpty(txtSelectedFileName.Text) ? txtSelectedFileName.Text : "Untitled";
                     if (pageCount <= 1)
                     {
-                        txtFinalMessage.Text = $"File '{inputDocument.Info.Title}' has only one page and cannot be split.";
+                        txtFinalMessage = $"File '{fileName}' has only one page and cannot be split.";
                         return;
                     }
 
-                    string fileName = !string.IsNullOrEmpty(inputDocument.Info.Title)
-                        ? inputDocument.Info.Title
-                        : "Untitled";
+                    
 
                     // 🟢 SINGLE PAGE SPLIT
                     if (isSinglePageSplit)
                     {
-                        progressBar1.Maximum = pageCount;
+                        //progressBar1.Maximum = pageCount;
 
                         for (int idx = 0; idx < pageCount; idx++)
                         {
@@ -118,11 +119,11 @@ namespace PdfSplitter
                             outputDocument.AddPage(inputDocument.Pages[idx]);
                             string outputFilePath = Path.Combine(outputFolder, $"Page_{idx + 1}.pdf");
                             outputDocument.Save(outputFilePath);
-                            progressBar1.Value = idx + 1;
+                           // progressBar1.Value = idx + 1;
                             Application.DoEvents();
                         }
 
-                        txtFinalMessage.Text = $"File '{fileName}' split successfully into {pageCount} pages!";
+                        txtFinalMessage = $"File '{fileName}' split successfully into {pageCount} pages!";
                     }
 
                     // 🟢 SELECTED INTO ONE FILE SPLIT
@@ -135,19 +136,19 @@ namespace PdfSplitter
                         }
 
                         PdfDocument outputDocument = new PdfDocument();
-                        progressBar1.Maximum = selectedPages.Count;
+                        //progressBar1.Maximum = selectedPages.Count;
 
                         foreach (int page in selectedPages)
                         {
                             outputDocument.AddPage(inputDocument.Pages[page - 1]);
-                            progressBar1.Value += 1;
+                            //progressBar1.Value += 1;
                             Application.DoEvents();
                         }
 
-                        string outputFilePath = Path.Combine(outputFolder, "SelectedPages.pdf");
+                        string outputFilePath = Path.Combine(outputFolder, string.Format("{0}_{1}_{2}.pdf",fileName, "SelectedPages",DateTime.Now.ToString("ddMMyyyyHHmmss")));
                         outputDocument.Save(outputFilePath);
 
-                        txtFinalMessage.Text = $"File '{fileName}' selected pages saved as '{Path.GetFileName(outputFilePath)}'";
+                        txtFinalMessage = $"File '{fileName}' selected pages saved as '{Path.GetFileName(outputFilePath)}'";
                     }
 
                     // 🟢 ODD PAGES SPLIT
@@ -155,19 +156,19 @@ namespace PdfSplitter
                     {
                         var oddPages = Enumerable.Range(1, pageCount).Where(p => p % 2 != 0).ToList();
                         PdfDocument outputDocument = new PdfDocument();
-                        progressBar1.Maximum = oddPages.Count;
+                        //progressBar1.Maximum = oddPages.Count;
 
                         foreach (int page in oddPages)
                         {
                             outputDocument.AddPage(inputDocument.Pages[page - 1]);
-                            progressBar1.Value += 1;
+                            // progressBar1.Value += 1;
                             Application.DoEvents();
                         }
 
                         string outputFilePath = Path.Combine(outputFolder, "OddPages.pdf");
                         outputDocument.Save(outputFilePath);
 
-                        txtFinalMessage.Text = $"Odd pages successfully saved as '{Path.GetFileName(outputFilePath)}'";
+                        txtFinalMessage = $"Odd pages successfully saved as '{Path.GetFileName(outputFilePath)}'";
                     }
 
                     // 🟢 EVEN PAGES SPLIT
@@ -175,19 +176,19 @@ namespace PdfSplitter
                     {
                         var evenPages = Enumerable.Range(1, pageCount).Where(p => p % 2 == 0).ToList();
                         PdfDocument outputDocument = new PdfDocument();
-                        progressBar1.Maximum = evenPages.Count;
+                        //progressBar1.Maximum = evenPages.Count;
 
                         foreach (int page in evenPages)
                         {
                             outputDocument.AddPage(inputDocument.Pages[page - 1]);
-                            progressBar1.Value += 1;
+                            //progressBar1.Value += 1;
                             Application.DoEvents();
                         }
 
                         string outputFilePath = Path.Combine(outputFolder, "EvenPages.pdf");
                         outputDocument.Save(outputFilePath);
 
-                        txtFinalMessage.Text = $"Even pages successfully saved as '{Path.GetFileName(outputFilePath)}'";
+                        txtFinalMessage = $"Even pages successfully saved as '{Path.GetFileName(outputFilePath)}'";
                     }
 
                     // 🟡 RANGE-WISE SPLIT
@@ -229,13 +230,13 @@ namespace PdfSplitter
 
                         // --- Splitting Section ---
                         PdfDocument outputDocument = new PdfDocument();
-                        progressBar1.Maximum = toPage - fromPage + 1;
-                        progressBar1.Value = 0;
+                        //progressBar1.Maximum = toPage - fromPage + 1;
+                        //progressBar1.Value = 0;
 
                         for (int page = fromPage; page <= toPage; page++)
                         {
                             outputDocument.AddPage(inputDocument.Pages[page - 1]);
-                            progressBar1.Value += 1;
+                            //progressBar1.Value += 1;
                             Application.DoEvents(); // keeps UI responsive
                         }
 
@@ -243,12 +244,13 @@ namespace PdfSplitter
                         outputDocument.Save(outputFilePath);
 
                         // ✅ Success message in txtFinalMessage (not MessageBox)
-                        txtFinalMessage.Text = $"Pages {fromPage}-{toPage} successfully saved as '{Path.GetFileName(outputFilePath)}'";
-                    }                   
+                        txtFinalMessage = $"Pages {fromPage}-{toPage} successfully saved as '{Path.GetFileName(outputFilePath)}'";
+                    }
+                    MessageBox.Show(txtFinalMessage, "Success", MessageBoxButtons.OK, MessageBoxIcon.None);
 
                 }
 
-                //txtFinalMessage.Text = string.Empty;
+                //txtFinalMessage = string.Empty;
                 //progressBar1.Minimum = 0;
                 //progressBar1.Value = 0;
                 //btnSplitPdf.Enabled = false;
@@ -260,8 +262,8 @@ namespace PdfSplitter
             }
             catch (Exception ex)
             {
-                txtFinalMessage.Text = "Error: " + ex.Message;
-                progressBar1.Value = 0;
+                MessageBox.Show(ex.Message,"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
         }
 
@@ -318,7 +320,7 @@ namespace PdfSplitter
                 chk.Top = startY + (row * spacingY);
 
                  /*store page number*/
-                chk.Tag = i; 
+                chk.Tag = i+1; 
 
                 checkBoxGroup.Controls.Add(chk);
             }
